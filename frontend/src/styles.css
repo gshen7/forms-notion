@@ -1,0 +1,36 @@
+.Container {
+  text-align: center;
+  background-color: #939cad;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+p {
+  max-width: 400px;
+}
+
+.chips {
+  display:flex;
+  flex-wrap:wrap;
+  max-width:200px !important;
+}
+
+.chip {
+  margin: 2px;
+}
+
+.UserInput > div {
+  min-width: 200px !important;
+}
+
+.UserInput {
+  margin-bottom: 25px;
+}
+
+label {
+  color: white !important;
+}
