@@ -71,7 +71,7 @@ export default function Create() {
         <div className="Container">
             <h1>Create Form</h1>
             <div>
-                <p><Link target="_blank" to='/form/5ee7def32ba16778f4311a77'>If you don't have an account, join the waitlist to start creating your own forms as soon as possible</Link></p>
+                <p><Link target="_blank" to='/form/5ee8e0606b5647fed80c522f'>If you don't have an account, join the waitlist to start creating your own forms as soon as possible</Link></p>
                 <p><Link to='/'>Cancel and go back to home</Link></p>
             </div>
             <div>
