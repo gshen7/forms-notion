@@ -7,8 +7,6 @@ export default function Create() {
     const [formHeading, setFormHeading] = useState("");
     const [user, setUser] = useState("");
     const [pass, setPass] = useState("");
-    const [formsDb, setFormsDb] = useState("");
-    const [fieldsDb, setFieldsDb] = useState("");
     const [responseDb, setResponseDb] = useState("");
     const [createError, setCreateError] = useState("");
     const [creating, setCreating] = useState(false);
@@ -25,8 +23,6 @@ export default function Create() {
             form_heading:formHeading,
             user:user,
             pass:pass,
-            forms_db:formsDb,
-            fields_db:fieldsDb,
             notion_db:responseDb
         }
         let options = {
@@ -66,16 +62,6 @@ export default function Create() {
         setCreateError("")
     }
 
-    const handleFormsDbInput = (value) => {
-        setFormsDb(value)
-        setCreateError("")
-    }
-
-    const handleFieldsDbInput = (value) => {
-        setFieldsDb(value)
-        setCreateError("")
-    }
-
     const handleResponseDbInput = (value) => {
         setResponseDb(value)
         setCreateError("")
@@ -85,7 +71,7 @@ export default function Create() {
         <div className="Container">
             <h1>Create Form</h1>
             <div>
-                <p><Link target="_blank" to='/form/5ee7def32ba16778f4311a77'>Join the waitlist to start creating your own forms as soon as possible</Link></p>
+                <p><Link target="_blank" to='/form/5ee7def32ba16778f4311a77'>If you don't have an account, join the waitlist to start creating your own forms as soon as possible</Link></p>
                 <p><Link to='/'>Cancel and go back to home</Link></p>
             </div>
             <div>
@@ -116,26 +102,6 @@ export default function Create() {
                     onChange={e => handleFormHeadingInput(e.target.value)}
                     value={formHeading}
                     label="* Form Heading"
-                    variant="outlined"
-                />
-            </div>
-            <div>
-                <TextField
-                    fullWidth
-                    margin="normal"
-                    onChange={e => handleFormsDbInput(e.target.value)}
-                    value={formsDb}
-                    label="* Link to Forms DB"
-                    variant="outlined"
-                />
-            </div>
-            <div>
-                <TextField
-                    fullWidth
-                    margin="normal"
-                    onChange={e => handleFieldsDbInput(e.target.value)}
-                    value={fieldsDb}
-                    label="* Link to Fields DB"
                     variant="outlined"
                 />
             </div>

@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 app = Flask(__name__, static_folder='frontend/build')
 
-FORM_KEYS = ['form_heading','user','pass','forms_db','fields_db']
+FORM_KEYS = ['form_heading','user','pass']
 
 mongoAuth = os.getenv('MONGO_USER_PASS')
 mongoClient = MongoClient(f'mongodb+srv://{mongoAuth}@notion-forms-ycc2d.mongodb.net/notion-forms?retryWrites=true&w=majority')
@@ -24,8 +24,8 @@ def _get_form_by_id(form_id: str):
         'id':str(form['_id']),
         'form_heading':form['form_heading'],
         'token':token['token'],
-        'forms_db':form['forms_db'],
-        'fields_db':form['fields_db'],
+        'forms_db':token['forms_db'],
+        'fields_db':token['fields_db'],
     }
     return result
 
@@ -154,11 +154,12 @@ def add_form():
         return "user pass not valid", 401
 
     form = { key: data[key] for key in FORM_KEYS }
+    form.pop('pass', None)
 
     notionClient = NotionClient(user['token'])
     
-    forms = notionClient.get_collection_view(data['forms_db']).collection
-    fields = notionClient.get_collection_view(data['fields_db']).collection
+    forms = notionClient.get_collection_view(user['forms_db']).collection
+    fields = notionClient.get_collection_view(user['fields_db']).collection
     collection = notionClient.get_collection_view(data['notion_db']).collection
 
     form_row = forms.add_row()
