@@ -56,13 +56,19 @@ export default function App() {
   }
 
   useEffect(() => {
-    fetch(`/api/getFormForDisplay/${form_id}`).then(res => res.json()).then(data => {
-      setHeading(data.heading)
-      setDescription(data.description)
-      setQuestions(data.questions)
-      setLoaded(true)
-      document.title = data.heading ? data.heading : "Form"
-    });
+    fetch(`/api/getFormForDisplay/${form_id}`).then(res => {
+      if (res.status === 200) {
+        return res.json().then(data => {
+          setHeading(data.heading)
+          setDescription(data.description)
+          setQuestions(data.questions)
+          setLoaded(true)
+          document.title = data.heading ? data.heading : "Form"
+        });
+      } else {
+        history.push('/no-form')
+      }
+    })
   }, [form_id]);
 
   let displayDescription = description ? (<p>{description}</p>) : ""

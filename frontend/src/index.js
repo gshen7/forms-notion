@@ -8,6 +8,7 @@ import Home from './Home';
 import Create from './Create'
 import Created from './Created'
 import About from './About'
+import NoForm from './NoForm'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -19,6 +20,7 @@ const routing = (
       <Route exact path="/create" component={Create} />
       <Route exact path="/created" component={Created} />
       <Route exact path="/about" component={About} />
+      <Route exact path="/no-form" component={NoForm} />
     </Switch>
   </Router>
 )

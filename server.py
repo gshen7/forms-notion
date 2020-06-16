@@ -28,6 +28,16 @@ def _get_form_by_id(form_id: str):
     }
     return result
 
+def _get_form_for_display(form, form_results):
+    form_result = {}
+    for row in form_results:
+        all_properties = row.get_all_properties()
+        if all_properties['form_link'].endswith(form['id']):
+            form_result=all_properties
+            break
+    
+    return form_result
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
@@ -54,14 +64,10 @@ def get_form_for_display_by_id(form_id: str):
     forms = notionClient.get_collection_view(form['forms_db']).collection
     fields = notionClient.get_collection_view(form['fields_db']).collection
 
-    form_results = forms.query()
-    form_result = {}
-    for row in form_results:
-        all_properties = row.get_all_properties()
-        if all_properties['form_link'].endswith(form['id']):
-            form_result=all_properties
-            break
-    
+    form_result = _get_form_for_display(form, forms.query())    
+    if form_result == {}:
+        return 'form entry in form_db not found', 400
+        
     formForDisplay = {
         'heading':form_result['heading'] if 'heading' in form_result and form_result['heading'] else '',
         'description':form_result['description'] if 'description' in form_result and form_result['description'] else '',
@@ -104,13 +110,9 @@ def add_form_entry(form_id:str):
     forms = notionClient.get_collection_view(form['forms_db']).collection
     fields = notionClient.get_collection_view(form['fields_db']).collection
 
-    form_results = forms.query()
-    form_result = {}
-    for row in form_results:
-        all_properties = row.get_all_properties()
-        if all_properties['form_link'].endswith(form['id']):
-            form_result=all_properties
-            break
+    form_result = _get_form_for_display(form, forms.query())
+    if form_result == {}:
+        return 'form entry in form_db not found', 400
 
     collection = notionClient.get_collection_view(form_result['notion_db']).collection
     
