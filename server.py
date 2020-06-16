@@ -22,7 +22,6 @@ def _get_form_by_id(form_id: str):
 
     result = {
         'id':str(form['_id']),
-        'form_heading':form['form_heading'],
         'token':token['token'],
         'forms_db':token['forms_db'],
         'fields_db':token['fields_db'],
@@ -55,13 +54,14 @@ def get_form_for_display_by_id(form_id: str):
     forms = notionClient.get_collection_view(form['forms_db']).collection
     fields = notionClient.get_collection_view(form['fields_db']).collection
 
-    form_filter_params = [{
-        "property": "Heading",
-        "comparator": "is",
-        "value": form['form_heading'],
-    }]
-    form_result = forms.query(filter=form_filter_params)[0].get_all_properties()
-
+    form_results = forms.query()
+    form_result = {}
+    for row in form_results:
+        all_properties = row.get_all_properties()
+        if all_properties['form_link'].endswith(form['id']):
+            form_result=all_properties
+            break
+    
     formForDisplay = {
         'heading':form_result['heading'] if 'heading' in form_result and form_result['heading'] else '',
         'description':form_result['description'] if 'description' in form_result and form_result['description'] else '',
@@ -104,12 +104,13 @@ def add_form_entry(form_id:str):
     forms = notionClient.get_collection_view(form['forms_db']).collection
     fields = notionClient.get_collection_view(form['fields_db']).collection
 
-    form_filter_params = [{
-        "property": "Heading",
-        "comparator": "is",
-        "value": form['form_heading'],
-    }]
-    form_result = forms.query(filter=form_filter_params)[0].get_all_properties()
+    form_results = forms.query()
+    form_result = {}
+    for row in form_results:
+        all_properties = row.get_all_properties()
+        if all_properties['form_link'].endswith(form['id']):
+            form_result=all_properties
+            break
 
     collection = notionClient.get_collection_view(form_result['notion_db']).collection
     
@@ -155,6 +156,7 @@ def add_form():
 
     form = { key: data[key] for key in FORM_KEYS }
     form.pop('pass', None)
+    form.pop('form_heading', None)
 
     notionClient = NotionClient(user['token'])
     
@@ -178,14 +180,13 @@ def add_form():
     collection_row = collection.add_row()
     collection_row.set_property('title', "Connected successfully (you can delete this)")
     
-    prefix = data['form_heading'].replace(' ','-')
     suffix = str(created.inserted_id)
 
     base = request.base_url.split( '/' )[2];
 
-    form_row.set_property('form_link', f"{base}/form/{prefix}-{suffix}")
+    form_row.set_property('form_link', f"{base}/form/{suffix}")
 
-    return {'id':suffix,'heading':prefix}, 200
+    return {'id':suffix}, 200
 
 if __name__ == "__main__":
     app.run()
