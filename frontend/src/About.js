@@ -7,6 +7,7 @@ export default function About() {
         <div className="Container">
             <h1>Notion Forms</h1>
             <p>With Notion Forms, you can create and manage forms that submit responses directly into your Notion databases. You will be able to manage your forms using your own Notion databases.</p>
+            <p>Currently we support forms with text/title, checkbox, select, and multi select fields.</p>
             <p><Link to='/'>Back to home</Link></p>
         </div>
     );

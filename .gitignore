@@ -1,2 +1,8 @@
 venv
 __pycache__
+
+*.csr
+*.key
+*.ca-bundle
+*.crt
+*.p7b
