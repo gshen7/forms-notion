@@ -144,6 +144,9 @@ def add_form():
             return f"no notion_db", 400
     
     user = tokens.find_one({'user':data['user']})
+    
+    if user == None:
+        return "user not found", 401
 
     password = data['pass']
     key = hashlib.pbkdf2_hmac(
