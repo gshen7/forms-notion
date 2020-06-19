@@ -69,7 +69,7 @@ export default function App() {
         history.push('/no-form')
       }
     })
-  }, [form_id]);
+  }, [form_id, history]);
 
   let displayDescription = description ? (<p>{description}</p>) : ""
 
@@ -138,6 +138,7 @@ export default function App() {
         </div>
       ))}
       <br/>
+      <p>{submitError}</p>
       <div className="UserInput" >
         {loaded ? <Button
           variant="contained"
@@ -146,7 +147,6 @@ export default function App() {
         >
           <h2>{submitting ? "Submitting..." : "Submit"}</h2>
         </Button> : ""}
-        <p>{submitError}</p>
       </div>
     </div>
   );

@@ -71,7 +71,8 @@ export default function Create() {
         <div className="Container">
             <h1>Create Form</h1>
             <div>
-                <p><Link target="_blank" to='/form/5ee8e0606b5647fed80c522f'>If you don't have an account, join the waitlist to start creating your own forms as soon as possible</Link></p>
+                <p><Link target="_blank" rel="noopener noreferrer" to='/form/5ee8e0606b5647fed80c522f'>If you don't have an account, join the waitlist to start creating your own forms as soon as possible</Link></p>
+                <p><Link target="_blank" rel="noopener noreferrer" to='/form/5eed12b343af73792c5b0a10'>Let us know if you're enjoying Notion Forms or how we can improve</Link></p>
                 <p><Link to='/'>Cancel and go back to home</Link></p>
             </div>
             <div>
@@ -116,6 +117,7 @@ export default function Create() {
                 />
             </div>
             <br />
+            <p>{createError}</p>
             <div>
                 <Button
                     variant="contained"
@@ -124,7 +126,6 @@ export default function Create() {
                 >
                     <h2>{creating ? "Creating..." : "Create"}</h2>
                 </Button>
-                <p>{createError}</p>
             </div>
             
         </div>

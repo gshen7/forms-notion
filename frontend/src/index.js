@@ -9,6 +9,7 @@ import Create from './Create'
 import Created from './Created'
 import About from './About'
 import NoForm from './NoForm'
+import NoMatch from './NoMatch'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -21,6 +22,7 @@ const routing = (
       <Route exact path="/created" component={Created} />
       <Route exact path="/about" component={About} />
       <Route exact path="/no-form" component={NoForm} />
+      <Route exact component={NoMatch} />
     </Switch>
   </Router>
 )
