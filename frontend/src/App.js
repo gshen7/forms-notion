@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, 
   TextField, 
   Switch, 
@@ -12,10 +13,18 @@ import { Button,
   ListItemText,
   MenuItem, 
   FormControlLabel, 
-  LinearProgress} from "@material-ui/core";
+  LinearProgress,
+  CircularProgress} from "@material-ui/core";
 import './styles.css';
 
+const useStyles = makeStyles(() => ({
+  loadingSpinner: {
+    color: 'white',
+  },
+}));
+
 export default function App() {
+  const classes = useStyles();
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -76,7 +85,7 @@ export default function App() {
 
   return (
     <div className="Container">
-      <h1>{heading ? heading : "Loading..."}</h1>
+      <h1>{heading ? <div>{heading}</div> : <div><CircularProgress className={classes.loadingSpinner}/><br/>Loading...</div>}</h1>
       {displayDescription}
       {questions.map( (question, index) => (
         <div className="UserInput" key={question.field}>
