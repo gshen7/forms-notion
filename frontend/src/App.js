@@ -11,7 +11,8 @@ import { Button,
   Checkbox,
   ListItemText,
   MenuItem, 
-  FormControlLabel } from "@material-ui/core";
+  FormControlLabel, 
+  LinearProgress} from "@material-ui/core";
 import './styles.css';
 
 export default function App() {
@@ -145,7 +146,7 @@ export default function App() {
           color="default"
           onClick={() => submit(history)}
         >
-          <h2>{submitting ? "Submitting..." : "Submit"}</h2>
+          <h2>{submitting ? <div><LinearProgress /><p>Submitting...</p></div> : <div><LinearProgress variant="determinate" value={0} /><p>Submit</p></div>}</h2>
         </Button> : ""}
       </div>
     </div>

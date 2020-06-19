@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import './styles.css';
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, LinearProgress } from "@material-ui/core";
 
 export default function Create() {
     const [formHeading, setFormHeading] = useState("");
@@ -124,7 +124,7 @@ export default function Create() {
                     color="default"
                     onClick={() => create(history)}
                 >
-                    <h2>{creating ? "Creating..." : "Create"}</h2>
+                    <h2>{creating ? <div><LinearProgress /><p>creating...</p></div> : <div><LinearProgress variant="determinate" value={0} /><p>Create</p></div>}</h2>
                 </Button>
             </div>
             
