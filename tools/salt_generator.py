@@ -2,17 +2,16 @@ import os
 import hashlib
 from pymongo import MongoClient
 
-USER = ''
-
 mongoAuth = os.getenv('MONGO_USER_PASS')
 mongoClient = MongoClient("mongodb+srv://"+str(mongoAuth)+"@notion-forms-ycc2d.mongodb.net/notion-forms?retryWrites=true&w=majority")
 db = mongoClient['notion-forms']
 tokens = db.tokens
 
+USER = 'nat.ngo'
+password = 'notion-forms'
+
 salt = os.urandom(32)
 tokens.update_one({'user':USER},{'$set':{'salt':salt}})
-
-password = tokens.find_one({'user':USER})['pass']
 
 key = hashlib.pbkdf2_hmac(
     'sha256', # The hash digest algorithm for HMAC

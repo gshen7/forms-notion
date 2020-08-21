@@ -91,7 +91,10 @@ def get_form_for_display_by_id(form_id: str):
             }
 
             if propsAvailable[field['name']]['type'] == 'select' or propsAvailable[field['name']]['type'] == 'multi_select':
-                result['options'] = [o['value'] for o in collection.get_schema_property(field['name'])['options']]
+                if 'options' in collection.get_schema_property(field['name']):
+                    result['options'] = [o['value'] for o in collection.get_schema_property(field['name'])['options']]
+                else:
+                    result['options'] = []
                 if propsAvailable[field['name']]['type'] == 'multi_select':
                     result['value']=[]
 
